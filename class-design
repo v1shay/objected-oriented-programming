@@ -1,1 +1,40 @@
+class zoo:
+    def __init__(self,name,population,habitat,food):
+        self.name=name
+        self.population=population
+        self.habitat=habitat
+        self.food=food
+    def show_info(self):
+        for b in self.population:
+            print(f"There are {self.population[b]} {b} who live in a predominantly {self.habitat[b]} habitat that eat {self.food[b]}.")
+    def add(self,animal,population,habitat,food):
+        self.population[animal]=population
+        self.habitat[animal]=habitat
+        self.food[animal]=food
+    def remove(self,animal):
+        if animal in self.population:
+            del self.population[animal]
+            del self.habitat[animal]
+            del self.food[animal]
 
+zoo1=zoo("OscarZoo",{"monkeys":200},{"monkeys":"jungle"},{"monkeys":"bananas"})
+zoo2=zoo("LeoZoo",{"lions":4},{"lions":"land"},{"lions":"meat"})
+
+while True:
+    a=input("Do you want to add/remove/view? ").lower()
+    if a=="add":
+        name=input("Animal name: ")
+        pop=int(input("Population: "))
+        hab=input("Habitat: ")
+        fd=input("Food: ")
+        zoo1.add(name,pop,hab,fd)
+    elif a=="view":
+        print("Zoo1Animals:")
+        zoo1.show_info()
+        print("Zoo2Animals:")
+        zoo2.show_info()
+    elif a=="remove":
+        name=input("Animal name to remove: ")
+        zoo1.remove(name)
+    else:
+        break
