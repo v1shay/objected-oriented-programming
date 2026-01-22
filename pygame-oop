@@ -7,7 +7,7 @@ def show_text(msg, x, y, color, size):
         fontobj= pygame.font.SysFont("freesans", size)
         msgobj = fontobj.render(msg,False,color)
         screen.blit(msgobj,(x, y))
-
+key_flag=False
 class circle:
     def __init__(self, color, x, y, radius):
         self.color=color
@@ -15,13 +15,19 @@ class circle:
         self.y=y
         self.radius=radius
         self.speed=random.randint(1,4)
+        self.key=chr(random.randint(65,90))
     def draw_circle(self):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+        show_text(str(self.key), self.x, self.y, (255, 255, 255), 20)
     def move_right(self):
+        self.x += self.speed
         if self.x<=0:
-            self.x=self.x+self.speed
+            self.speed=self.speed * -1
         if self.x>=600:
-            self.x=self.x-self.speed
+            self.speed=self.speed * -1
+        
+        
+
 circles=[]
 r=0
 for b in range(0, 10):
@@ -38,17 +44,30 @@ for b in range(0, 10):
     r=r+50
     d=circle((0, 100, 100),r, 300, 25)
     circles.append(d)
+key_pressed=""
+to_remove=[]
 while True:
     screen.fill((0, 0, 0)) 
-    for z in range(0, len(circles)):  
-        circles[z].draw_circle()
-        circles[z].move_right()
-          
+    for z in circles:  
+        z.draw_circle()
+        z.move_right()
+        if key_pressed==z.key:
+            if z not in to_remove:
+                to_remove.append(z)
     for event in pygame.event.get():
+        if event.type==pygame.KEYDOWN:
+            key_pressed=chr(event.key).upper()
+            print(key_pressed)
         if event.type==pygame.QUIT:
             print("bye")
             pygame.quit()
             exit()
+
+    print(to_remove)
+    for i in to_remove:
+        print(i.key)
+        circles.remove(i)
+        to_remove=[]
     pygame.display.update()
 
 # import pygame
@@ -102,4 +121,3 @@ while True:
             pygame.quit()
             exit()
     pygame.display.update()
-
