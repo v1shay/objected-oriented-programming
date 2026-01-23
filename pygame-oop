@@ -1,74 +1,100 @@
-import pygame
-import random
-pygame.init()
-screen=pygame.display.set_mode((600, 600))
-pygame.display.set_caption("Name of window")
-def show_text(msg, x, y, color, size):
-        fontobj= pygame.font.SysFont("freesans", size)
-        msgobj = fontobj.render(msg,False,color)
-        screen.blit(msgobj,(x, y))
-key_flag=False
-class circle:
-    def __init__(self, color, x, y, radius):
-        self.color=color
-        self.x=x
-        self.y=y
-        self.radius=radius
-        self.speed=random.randint(1,4)
-        self.key=chr(random.randint(65,90))
-    def draw_circle(self):
-        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
-        show_text(str(self.key), self.x, self.y, (255, 255, 255), 20)
-    def move_right(self):
-        self.x += self.speed
-        if self.x<=0:
-            self.speed=self.speed * -1
-        if self.x>=600:
-            self.speed=self.speed * -1
+# import pygame
+# import random
+# pygame.init()
+# screen=pygame.display.set_mode((600, 600))
+# pygame.display.set_caption("Name of window")
+# def show_text(msg, x, y, color, size):
+#         fontobj= pygame.font.SysFont("freesans", size)
+#         msgobj = fontobj.render(msg,False,color)
+#         screen.blit(msgobj,(x, y))
+# key_flag=False
+# class circle:
+#     def __init__(self, color, x, y, radius):
+#         self.color=color
+#         self.x=x
+#         self.y=y
+#         self.radius=radius
+#         self.speed=random.randint(1,4)
+#         self.key=chr(random.randint(65,90))
+#     def draw_circle(self):
+#         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+#         show_text(str(self.key), self.x, self.y, (255, 255, 255), 20)
+#     def move_right(self):
+#         self.x += self.speed
+#         if self.x<=0:
+#             self.speed=self.speed * -1
+#         if self.x>=600:
+#             self.speed=self.speed * -1
         
         
 
-circles=[]
-r=0
-for b in range(0, 10):
-    r=r+50
-    d=circle((0, 100, 100),r, 50, 25)
-    circles.append(d)
-r=0
-for b in range(0, 10):
-    r=r+50
-    d=circle((0, 100, 100),r, 150, 25)
-    circles.append(d)
-r=0
-for b in range(0, 10):
-    r=r+50
-    d=circle((0, 100, 100),r, 300, 25)
-    circles.append(d)
-key_pressed=""
-to_remove=[]
-while True:
-    screen.fill((0, 0, 0)) 
-    for z in circles:  
-        z.draw_circle()
-        z.move_right()
-        if key_pressed==z.key:
-            if z not in to_remove:
-                to_remove.append(z)
-    for event in pygame.event.get():
-        if event.type==pygame.KEYDOWN:
-            key_pressed=chr(event.key).upper()
-            print(key_pressed)
-        if event.type==pygame.QUIT:
-            print("bye")
-            pygame.quit()
-            exit()
+# circles=[]
+# r=0
+# for b in range(0, 10):
+#     r=r+50
+#     d=circle((0, 100, 100),r, 50, 25)
+#     circles.append(d)
+# r=0
+# for b in range(0, 10):
+#     r=r+50
+#     d=circle((0, 100, 100),r, 150, 25)
+#     circles.append(d)
+# r=0
+# for b in range(0, 10):
+#     r=r+50
+#     d=circle((0, 100, 100),r, 300, 25)
+#     circles.append(d)
+# key_pressed=""
+# to_remove=[]
+# while True:
+#     screen.fill((0, 0, 0)) 
+#     for z in circles:  
+#         z.draw_circle()
+#         z.move_right()
+#         if key_pressed==z.key:
+#             if z not in to_remove:
+#                 to_remove.append(z)
+#     for event in pygame.event.get():
+#         if event.type==pygame.KEYDOWN:
+#             key_pressed=chr(event.key).upper()
+#             print(key_pressed)
+#         if event.type==pygame.QUIT:
+#             print("bye")
+#             pygame.quit()
+#             exit()
 
-    print(to_remove)
-    for i in to_remove:
-        print(i.key)
-        circles.remove(i)
-        to_remove=[]
-    pygame.display.update()
+#     print(to_remove)
+#     for i in to_remove:
+#         print(i.key)
+#         circles.remove(i)
+#         to_remove=[]
+#     pygame.display.update()
+
+# # import pygame
+# # import random
+# # pygame.init()
+# # screen=pygame.display.set_mode((600, 600))
+# # pygame.display.set_caption("Name of window")
+# # def show_text(msg, x, y, color, size):
+# #         fontobj= pygame.font.SysFont("freesans", size)
+# #         msgobj = fontobj.render(msg,False,color)
+# #         screen.blit(msgobj,(x, y))
+
+# # class circles:
+# #     def __init__(self):
+# #         self.x=random.randint(0, 600)
+# #         self.y=random.randint(0,600)
+# #         self.color=(random.randint(0, 255), random.randint(0,255), random.randint(0, 255))
+# #         self.radius=random.randint(10, 50)
+
+
+# # while True:
+# #     for event in pygame.event.get():
+# #         if event.type==pygame.QUIT:
+# #             print("bye")
+# #             pygame.quit()
+# #             exit()
+# #     pygame.display.update()
 
 # import pygame
 # import random
@@ -96,6 +122,76 @@ while True:
 #             exit()
 #     pygame.display.update()
 
+# import pygame
+# import random
+# pygame.init()
+# screen=pygame.display.set_mode((600, 600))
+# pygame.display.set_caption("Name of window")
+# def show_text(msg, x, y, color, size):
+#         fontobj= pygame.font.SysFont("freesans", size)
+#         msgobj = fontobj.render(msg,False,color)
+#         screen.blit(msgobj,(x, y))
+# move=False
+
+# class circle:
+#     k=6829
+#     def __init__(self, y):
+        
+#         self.color=(random.randint(0,255), random.randint(0,255), random.randint(0,255))
+#         self.x=25
+#         self.y=y
+#         self.radius=25
+#         self.speed=random.randint(1,4)
+#         self.key=chr(random.randint(65,90))
+#         self.lap=0
+#     def draw_circle(self):
+#         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+    
+#     def move_right(self):
+#         global finishers
+#         self.x=self.x+self.speed
+#         if self.x<=25 or self.x>=600:
+#             self.speed=self.speed * -1
+#         if self.x<=25:
+#             self.lap=self.lap+1
+#         if self.lap==10:
+#             finishers=finishers+1
+#             if finishers==1:
+#                  self.color=(255, 0,0)
+#             if finishers==2:
+#                  self.color=(0, 0, 255)
+#             if finishers==3:
+#                  self.color=(0, 255, 0)
+#             self.speed=0
+# circles=[]
+# finishers=0
+# p=0
+# o=circle(60)
+# l=circle(80)
+# print(o.k)
+# for a in range(0, 10):
+#         o.k=10
+#         circle.k=100
+#         print(o.k, l.k)
+#         p=p+50
+#         b=circle(p)
+#         circles.append(b)
+# while True:
+#     screen.fill((0, 0,0))
+#     for c in circles:
+#         c.draw_circle()
+#         if move==True:
+#             c.move_right()
+#     for event in pygame.event.get():
+#         if event.type==pygame.KEYDOWN: 
+#             if event.key==pygame.K_SPACE:
+#                 move=True
+#         if event.type==pygame.QUIT:
+#             print("bye")
+#             pygame.quit()
+#             exit()
+#     pygame.display.update()
+
 import pygame
 import random
 pygame.init()
@@ -105,17 +201,31 @@ def show_text(msg, x, y, color, size):
         fontobj= pygame.font.SysFont("freesans", size)
         msgobj = fontobj.render(msg,False,color)
         screen.blit(msgobj,(x, y))
-
-class circles:
+large=False
+small=False
+class circle:
+    radius=25
     def __init__(self):
         self.x=random.randint(0, 600)
-        self.y=random.randint(0,600)
-        self.color=(random.randint(0, 255), random.randint(0,255), random.randint(0, 255))
-        self.radius=random.randint(10, 50)
+        self.y=random.randint(0, 600)
+        self.color=((random.randint(0, 255)), (random.randint(0,255)), (random.randint(0, 255)))
+    def draw_circle(self):
+        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
-
-while True:
+circles=[]
+for i in range(0, 10):
+    a=circle()
+    circles.append(a)
+while True:       
+    screen.fill((0,0,0))
+    for b in circles:
+        b.draw_circle()
     for event in pygame.event.get():
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_UP:
+                circle.radius=circle.radius+2
+            if event.key==pygame.K_DOWN:
+                circle.radius=circle.radius-2
         if event.type==pygame.QUIT:
             print("bye")
             pygame.quit()
