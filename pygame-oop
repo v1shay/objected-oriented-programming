@@ -204,13 +204,19 @@ def show_text(msg, x, y, color, size):
 large=False
 small=False
 class circle:
-    radius=25
     def __init__(self):
         self.x=random.randint(0, 600)
         self.y=random.randint(0, 600)
         self.color=((random.randint(0, 255)), (random.randint(0,255)), (random.randint(0, 255)))
+        self.radius=25
     def draw_circle(self):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+    def decrease_radius(self, pos):
+        if pos[0] >= self.x-self.radius and pos[0] <= self.x+self.radius and pos[1] >= self.y-self.radius and pos[1] <= self.y+self.radius:
+            self.radius=self.radius-2
+    def increase_radius(self, pos):
+        if pos[0] >= self.x-self.radius and pos[0] <= self.x+self.radius and pos[1] >= self.y-self.radius and pos[1] <= self.y+self.radius:
+            self.radius=self.radius+2
 
 circles=[]
 for i in range(0, 10):
@@ -220,12 +226,15 @@ while True:
     screen.fill((0,0,0))
     for b in circles:
         b.draw_circle()
+
     for event in pygame.event.get():
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_UP:
-                circle.radius=circle.radius+2
-            if event.key==pygame.K_DOWN:
-                circle.radius=circle.radius-2
+        if event.type==pygame.MOUSEBUTTONDOWN:
+            if event.button==1:
+                for i in circles:
+                    i.decrease_radius(event.pos)
+            if event.button==3:
+                for l in circles:
+                    l.increase_radius(event.pos)
         if event.type==pygame.QUIT:
             print("bye")
             pygame.quit()
