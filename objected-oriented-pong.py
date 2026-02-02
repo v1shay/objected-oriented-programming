@@ -1,1 +1,104 @@
+ import pygame
+import time
+pygame.init()
+screen=pygame.display.set_mode((600, 600))
+pygame.display.set_caption("Name of window")
+def show_text(msg, x, y, color, size):
+        fontobj= pygame.font.SysFont("freesans", size)
+        msgobj = fontobj.render(msg,False,color)
+        screen.blit(msgobj,(x, y))
+#Basic syntax for Ball class: 
+class Ball():     
+    def __init__(self):         
+        self.x = 300         
+        self.y = 300         
+        self.color = (255, 0, 0)         
+        self.radius = 20         
+        self.xmovement = 0.5 
+        self.ymovement = 0.3
+    def draw(self):
+        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+    def bounce(self):
+        if self.x<=-25:
+            p2.score=p2.score+1
+        if self.x>=625:
+            p1.score=p1.score+1
+        self.y=self.y+self.ymovement
+        if self.y<=0:
+            self.ymovement=self.ymovement * -1
+        if self.y>=600:
+            self.ymovement=self.ymovement * -1
+        self.x=self.x+self.xmovement
+        if p1.hit()==True:
+            self.xmovement=0.5
+        if p2.hit()==True:
+            self.xmovement=-0.5
+        if self.x<=-25 or self.x>=625:
+            self.x=300
+            self.y=300
+            self.draw()
+            pygame.display.update()
+            time.sleep(1)
+ball = Ball()  # Creating an object/instance of this class. 
+#Basic syntax for Paddle class: 
+class Paddle():     
+    def __init__(self, color, x, y):         
+        self.color = color         
+        self.x = x         
+        self.y = y         
+        self.width = 20         
+        self.height = 200 
+        self.up = False         
+        self.down = False         
+        self.score = 0         
+        self.speed = 0.5
+    def move_paddle(self):
+        if self.up==True:
+            self.y=self.y-self.speed
+        if self.down==True:
+            self.y=self.y+self.speed
+    def hit(self):
+        a=pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        b=pygame.draw.circle(screen, ball.color, (ball.x, ball.y), ball.radius)
+        if a.colliderect(b):
+            return True
+        else:
+            return False
+    def draw_paddle(self):
+        a=pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+p1 = Paddle((0,255,0), 10, 200)    # Paddle 1 
+p2 = Paddle((0,0,255), 570, 200)  # Paddle 2 
+while True:
+    screen.fill((0,0,0))
+    show_text(str(p1.score)+"-" +str(p2.score), 275, 25, (255, 255, 255), 25)
+    ball.draw()
+    ball.bounce()
+    p1.draw_paddle()
+    p1.move_paddle()
+    p2.draw_paddle()
+    p2.move_paddle()
+    for event in pygame.event.get():
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_UP:
+                p2.up=True
+            if event.key==pygame.K_DOWN:
+                p2.down=True
+            if event.key==pygame.K_w:
+                p1.up=True
+            if event.key==pygame.K_s:
+                p1.down=True
+        if event.type==pygame.KEYUP:
+            if event.key==pygame.K_UP:
+                p2.up=False
+            if event.key==pygame.K_DOWN:
+                p2.down=False
+            if event.key==pygame.K_w:
+                p1.up=False
+            if event.key==pygame.K_s:
+                p1.down=False
+        if event.type==pygame.QUIT:
+            print("bye")
+            pygame.quit()
+            exit()
+    pygame.display.update()
 
