@@ -1,4 +1,4 @@
- import pygame
+import pygame
 import time
 pygame.init()
 screen=pygame.display.set_mode((600, 600))
@@ -19,10 +19,6 @@ class Ball():
     def draw(self):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
     def bounce(self):
-        if self.x<=-25:
-            p2.score=p2.score+1
-        if self.x>=625:
-            p1.score=p1.score+1
         self.y=self.y+self.ymovement
         if self.y<=0:
             self.ymovement=self.ymovement * -1
@@ -33,12 +29,17 @@ class Ball():
             self.xmovement=0.5
         if p2.hit()==True:
             self.xmovement=-0.5
-        if self.x<=-25 or self.x>=625:
-            self.x=300
-            self.y=300
-            self.draw()
-            pygame.display.update()
+        if self.x <= -25:
+            p2.score += 1
+            self.x = 300
+            self.y = 300
             time.sleep(1)
+        if self.x >= 625:
+            p1.score += 1
+            self.x = 300
+            self.y = 300
+    time.sleep(1)
+
 ball = Ball()  # Creating an object/instance of this class. 
 #Basic syntax for Paddle class: 
 class Paddle():     
@@ -70,7 +71,16 @@ p1 = Paddle((0,255,0), 10, 200)    # Paddle 1
 p2 = Paddle((0,0,255), 570, 200)  # Paddle 2 
 while True:
     screen.fill((0,0,0))
-    show_text(str(p1.score)+"-" +str(p2.score), 275, 25, (255, 255, 255), 25)
+    for y in range(0, 600, 40):
+        pygame.draw.rect(screen, (255, 255, 255), (295, y, 10, 20))
+    if p1.score > p2.score:
+        score_color = (0, 255, 0)
+    elif p2.score > p1.score:
+        score_color = (0, 0, 255)
+    else:
+        score_color = (255, 255, 255)
+    show_text(str(p1.score) + " - " + str(p2.score), 265, 25, score_color, 25)
+    
     ball.draw()
     ball.bounce()
     p1.draw_paddle()
@@ -101,4 +111,3 @@ while True:
             pygame.quit()
             exit()
     pygame.display.update()
-
